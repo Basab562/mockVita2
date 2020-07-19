@@ -1,0 +1,324 @@
+---------------------------------------------------------------PROBLEM C: DOLE OUT CADBURY------------------------------------------------------------
+/*
+    quid-pro-quo: LOGIC for AC
+*/
+#include<bits/stdc++.h>
+#define fastio ios::sync_with_stdio(false), cin.tie(NULL)
+#define ll long long
+#define pb push_back
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vll vector<ll>
+#define vvll vector<vector<ll>>
+#define pii pair<int, int>
+#define pll pair<long long, long long>
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define asc(x) sort(all(x))
+#define desc(x) sort(all(x), greater<int>())
+using namespace std;
+const int MAX=1e6, M=1e9+7;
+const int mod = 998244353;
+
+void solve(){
+    int p,q,r,s; cin>>p>>q>>r>>s;
+    int nChildren=0;
+    for(int i=p; i<=q; i++){
+        for(int j=r; j<=s; j++){
+            int cnt=0;
+            for(int r=i, c=j; r>0 and c>0;){
+                cnt++;
+                int maxim = max(r, c);
+                if(maxim==r){
+                    r-=c;
+                }else{
+                    c-=r;
+                }
+            }
+            nChildren+=cnt;
+        }
+    }
+    cout<<nChildren;
+}
+int main(){
+    fastio;
+    //int t; cin>>t;
+    //while(t--){
+        solve();
+    //}
+    return 0;
+}
+
+-----------------------------------------------------PROBLEM E: Grooving Monkey(Partially Solved (only Public Test Cases))--------------------------------------
+/*
+    quid-pro-quo: LOGIC for AC
+*/
+#include<bits/stdc++.h>
+#define fastio ios::sync_with_stdio(false), cin.tie(NULL)
+#define ll long long
+#define pb push_back
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vll vector<ll>
+#define vvll vector<vector<ll>>
+#define pii pair<int, int>
+#define pll pair<long long, long long>
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define asc(x) sort(all(x))
+#define desc(x) sort(all(x), greater<int>())
+using namespace std;
+const int MAX=1e6, M=1e9+7;
+const int mod = 998244353;
+
+void solve(){
+    int n; cin>>n;
+    vi v(n);
+    for(int &i: v) cin>>i;
+    vi arr;
+    for(int i=0; i<n; i++){
+        arr.pb(i+1);
+    }
+    vi constarr=arr;
+    int cnt=0;
+    vi temparr(n);
+    for(int i=0; 1; i++){
+        int k=0;
+        for(int j=0; j<n; j++){
+            temparr[v[j]-1]=arr[j];
+        }
+        if(temparr==constarr){
+            cnt++;
+            break;
+        }else{
+            arr=temparr;
+            cnt++;
+        }
+    }
+    cout<<cnt;
+}
+int main(){
+    fastio;
+    int t; cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
+
+--------------------------------------------------------------PROBLEM D: Petrol Pump-------------------------------------------------------
+/*
+    quid-pro-quo: LOGIC for AC
+*/
+#include<bits/stdc++.h>
+#define fastio ios::sync_with_stdio(false), cin.tie(NULL)
+#define ll long long
+#define pb push_back
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vll vector<ll>
+#define vvll vector<vector<ll>>
+#define pii pair<int, int>
+#define pll pair<long long, long long>
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define asc(x) sort(all(x))
+#define desc(x) sort(all(x), greater<int>())
+using namespace std;
+const int MAX=1e6, M=1e9+7;
+const int mod = 998244353;
+
+void solve(){
+    string capacity; getline(cin, capacity);
+    vi v;
+    int n=0, total=0;
+    stringstream parse(capacity);
+    while(parse>>n){
+        v.pb(n);
+        total+=n;
+    }
+    //X+Y=total
+    int minDiff=0;
+    vvi dp(v.size()+1, vi(total+1));
+    dp[0][0]=1;
+    for(int i=1; i<(int)v.size()+1; i++){
+        for(int j=0; j<total+1; j++){
+            if(j==0){
+                dp[i][j]=1;
+            }else if(j<v[i-1]){
+                dp[i][j]=dp[i-1][j];
+            }else{
+                dp[i][j]=dp[i-1][j] or dp[i-1][j-v[i-1]];
+            }
+        }
+    }
+    for(int j=total/2; j>=0; j--){
+        if(dp[v.size()][j]==1){
+            minDiff=total-2*j;
+            break;
+        }
+    }
+    //X-Y=minDiff
+    cout<<(total+minDiff)/2;
+}
+int main(){
+    fastio;
+    //int t; cin>>t;
+    //while(t--){
+        solve();
+    //}
+    return 0;
+}
+
+-----------------------------------------------------PROBLEM B: Digit Pairs------------------------------------------------------------------
+/*
+    quid-pro-quo: LOGIC for AC
+*/
+#include<bits/stdc++.h>
+#define fastio ios::sync_with_stdio(false), cin.tie(NULL)
+#define ll long long
+#define pb push_back
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vll vector<ll>
+#define vvll vector<vector<ll>>
+#define pii pair<int, int>
+#define pll pair<long long, long long>
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define asc(x) sort(all(x))
+#define desc(x) sort(all(x), greater<int>())
+using namespace std;
+const int MAX=1e6, M=1e9+7;
+const int mod = 998244353;
+
+void solve(){
+    int n; cin>>n;
+    vi v(n);
+    for(int &i: v) cin>>i;
+    vector<string> bit;
+    for(int i=0; i<n; i++){
+        int z = v[i]%10; v[i]/=10;
+        int y = v[i]%10; v[i]/=10;
+        int x = v[i]%10; v[i]/=10;
+        int maxD = max(x, max(y, z));
+        int minD = min(x, min(y, z));
+        maxD*=11, minD*=7;
+        int bitScore = maxD+minD;
+        bitScore%=100;
+        if(bitScore/10==0){
+            bit.pb("0"+to_string(bitScore));
+            continue;
+        }
+        bit.pb(to_string(bitScore));
+    }
+    vector<pair<string, int>> vstr;
+    int j=0;
+    for(string i: bit)
+        vstr.pb({i, ++j});
+
+    //for(auto it: vstr) cout<<it.F<<" "<<it.S<<endl;
+
+    unordered_map<char,int>umForOdd, umForEven;
+    for(auto it: vstr){
+        if(it.S&1){
+            umForOdd[it.F[0]]++;
+        }else{
+            umForEven[it.F[0]]++;
+        }
+    }
+    int ans=0;
+    for(auto it: umForOdd){
+        if(it.S>2){
+            ans+=2;
+        }else if(it.S==2){
+            ans++;
+        }
+    }
+    for(auto it: umForEven){
+        if(it.S>2){
+            ans+=2;
+        }else if(it.S==2){
+            ans++;
+        }
+    }
+    for(auto it: umForOdd){
+        if(umForEven[it.F]>2 and umForOdd[it.F]>2){
+            ans-=2;
+        }
+        else if(umForEven[it.F]==2 and umForOdd[it.F]==2){
+            //do nothing
+        }else if(umForEven[it.F]>2 and umForOdd[it.F]==2){
+            ans--;
+        }else if(umForOdd[it.F]>2 and umForEven[it.F]==2){
+            ans--;
+        }
+    }
+    cout<<ans;
+}
+int main(){
+    fastio;
+    //int t; cin>>t;
+    //while(t--){
+        solve();
+    //}
+    return 0;
+}
+
+----------------------------------------------------PROBLEM A: SwayamVar-------------------------------------------------------------------
+/*
+    quid-pro-quo: LOGIC for AC
+*/
+#include<bits/stdc++.h>
+#define fastio ios::sync_with_stdio(false), cin.tie(NULL)
+#define ll long long
+#define pb push_back
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define vll vector<ll>
+#define vvll vector<vector<ll>>
+#define pii pair<int, int>
+#define pll pair<long long, long long>
+#define mp make_pair
+#define F first
+#define S second
+#define all(x) x.begin(), x.end()
+#define asc(x) sort(all(x))
+#define desc(x) sort(all(x), greater<int>())
+using namespace std;
+const int MAX=1e6, M=1e9+7;
+const int mod = 998244353;
+
+void solve(){
+    int n; cin>>n;
+    vector<char> v1(n), v2(n);
+    for(char &c: v1) cin>>c;
+    for(char &c: v2) cin>>c;
+    auto it = find(all(v2), v1[0]);
+    for(int i=0; i<(int)v1.size(); i++){
+        auto it = find(all(v2), v1[i]);
+        if(it==v2.end()){
+            break;
+        }else{
+            v2[it-v2.begin()]='*', v1[i]='*';
+            n--;
+        }
+    }
+    cout<<n;
+}
+int main(){
+    fastio;
+    //int t; cin>>t;
+    //while(t--){
+        solve();
+    //}
+    return 0;
+}
